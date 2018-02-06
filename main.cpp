@@ -7,12 +7,24 @@
 //
 
 #include <iostream>
-#include "BitMapFile.h"
-#include "BitMapInfo.h"
-#include "BitMap.h"
+#include "Bitmap.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+using namespace std;
+using namespace bit;
+
+int main() {
+    
+    int const WIDTH = 800;
+    int const HEIGHT = 600;
+    
+    Bitmap bitmap(WIDTH, HEIGHT);
+    
+    bitmap.setPixel(WIDTH/2, HEIGHT/2, 255, 255, 255);
+    
+    bitmap.writeBMP("test1.bmp");
+    
+    cout << "finished" << endl;
+    
     return 0;
 }
