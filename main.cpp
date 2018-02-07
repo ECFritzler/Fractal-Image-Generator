@@ -8,22 +8,20 @@
 
 #include <iostream>
 #include "FractalCreator.hpp"
-
+#include "Colouring.hpp"
 using namespace std;
 using namespace bit;
 
 int main() {
     
-    int const height = 600;
-    
     FractalCreator fractal(800, 600);
     
-    fractal.addZoom(Zoom(295, height - 202, 0.1));
-    fractal.addZoom(Zoom(312, height - 304, 0.1));
-    fractal.calcIter();
-    fractal.totalIter();
-    fractal.drawFrac();
-    fractal.writeBitmap("zoomIn.bmp");
+    fractal.addRange(0.3, Colouring(255, 0, 0));
+    fractal.addRange(10, Colouring(0,255,0));
+    fractal.addRange(2.7, Colouring(0,0,255));
+
+    
+    fractal.run("colouring.bmp");
     
     cout << "finished" << endl;
     
