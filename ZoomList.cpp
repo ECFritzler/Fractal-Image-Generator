@@ -17,11 +17,18 @@ namespace bit{
     void ZoomList::add(const Zoom& zoom)
     {
         zooms.push_back(zoom);
+        xCenter += (zoom.x - sWidth/2) * scale;
+        yCenter += (zoom.y - sHeight/2) * scale;
+        scale *= zoom.scale;
+        
     }
     
     std::pair<double, double> ZoomList::doZoom(int x, int y)
     {
-        return std::pair<double, double>(0,0);
+        double xFrac = (x - sWidth/2) * scale + xCenter;
+        double yFrac = (y - sHeight/2) * scale + yCenter;
+        
+        return std::pair<double, double>(xFrac,yFrac);
         
     }
     

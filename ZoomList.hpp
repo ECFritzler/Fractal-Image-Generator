@@ -23,6 +23,9 @@ namespace bit{
         std::vector<Zoom> zooms;
         
     public:
+        double xCenter{0};
+        double yCenter{0};
+        double scale{1.0};
         ZoomList(int w, int h);
         void add(const Zoom& zoom);
         std::pair<double, double> doZoom(int x, int y);
