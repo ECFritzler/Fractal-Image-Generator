@@ -15,6 +15,17 @@ namespace bit{
         zoomList.add(Zoom(width/2, height/2, 4.0/width));
     }
     
+    void FractalCreator::run(string name)
+    {
+        addZoom(Zoom(295, height - 202, 0.1));
+        addZoom(Zoom(312, height - 304, 0.1));
+        calcIter();
+        totalIter();
+        drawFrac();
+        writeBitmap(name);
+    }
+    
+    
     void FractalCreator::calcIter()
     {
         for (int y = 0; y < height; y++) {
@@ -45,6 +56,9 @@ namespace bit{
     
     void FractalCreator::drawFrac()
     {
+        Colouring start(0,0,0);
+        Colouring end(255, 101, 90);
+        Colouring diff = end - start;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 
@@ -62,9 +76,9 @@ namespace bit{
                         hue += ((double) histo_prt[i]) / total;
                     }
                     
-                    //green = pow(200, hue);
-                    blue = pow(200, hue);
-                    red = pow(175, hue);
+                    green = start.g + diff.g * hue;
+                    blue = start.b + diff.b * hue;
+                    red = pow((start.r + diff.r), hue);
                 }
                 bitmap.setPixel(x, y, red, green, blue);
             }
@@ -80,4 +94,12 @@ namespace bit{
     {
         bitmap.writeBMP(fileName);
     }
+    
+    void FractalCreator::addRange(double rangeEnd, const Colouring& c)
+    {
+        range.push_back(rangeEnd*Mandelbrot::MAX_ITER);
+        colours.push_back(c);
+    }
+    
+    
 }
