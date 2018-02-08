@@ -30,7 +30,8 @@ namespace bit{
         int total;
         vector<double> range;
         vector<Colouring> colours;
-        
+        vector<int> numRange;
+        bool rangeStart{false};
         
         // Member Functions
         void calcIter();
@@ -38,6 +39,8 @@ namespace bit{
         void drawFrac();
         void addZoom(const Zoom& zoom);
         void writeBitmap(std::string fileName);
+        void calcRangeTotal();
+        int getRange(int it) const;
         
     public:
         FractalCreator(int w, int h);

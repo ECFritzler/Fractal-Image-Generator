@@ -15,13 +15,15 @@ using namespace bit;
 int main() {
     
     FractalCreator fractal(800, 600);
-    
+   
+    fractal.addRange(0.0, Colouring(0, 0, 0));
     fractal.addRange(0.3, Colouring(255, 0, 0));
-    fractal.addRange(10, Colouring(0,255,0));
-    fractal.addRange(2.7, Colouring(0,0,255));
+    fractal.addRange(0.5, Colouring(0,0,255));
+    fractal.addRange(1.0, Colouring(0,255,0));
+   
 
     
-    fractal.run("colouring.bmp");
+    fractal.run("colourRanges.bmp");
     
     cout << "finished" << endl;
     
