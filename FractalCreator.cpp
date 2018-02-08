@@ -8,6 +8,8 @@
 
 #include "FractalCreator.hpp"
 #include <math.h>
+#include <assert.h>
+#include <iostream>
 
 namespace bit{
     FractalCreator::FractalCreator(int w, int h):width(w), height(h), histo_prt(new int[Mandelbrot::MAX_ITER] {0}),fractal_ptr(new int[width * height] {0}), bitmap(width, height), zoomList(width, height), total(0)
@@ -22,7 +24,8 @@ namespace bit{
         calcIter();
         totalIter();
         drawFrac();
-        writeBitmap(name);
+        bitmap.writeBMP(name);
+        calcRangeTotal();
     }
     
     
@@ -56,30 +59,41 @@ namespace bit{
     
     void FractalCreator::drawFrac()
     {
-        Colouring start(0,0,0);
-        Colouring end(255, 101, 90);
-        Colouring diff = end - start;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                
+                int iterations = fractal_ptr[y * width + x];
+                
+                int ran = getRange(iterations);
+                std::cout<<iterations << std::endl;
+                int rangeTotal = numRange[ran];
+                int rangeStart = range[ran];
+                
+                Colouring& startColor = colours[ran];
+                Colouring& endColor = colours[ran + 1];
+                Colouring colorDiff = endColor - startColor;
                 
                 uint8_t red = 0;
                 uint8_t green = 0;
                 uint8_t blue = 0;
                 
-                int iter = fractal_ptr[y * width + x];
-                
-                if (iter != Mandelbrot::MAX_ITER) {
+                if (iterations != Mandelbrot::MAX_ITER) {
                     
-                    double hue = 0.0;
+                    int totalPixels = 0;
                     
-                    for (int i = 0; i <= iter; i++) {
-                        hue += ((double) histo_prt[i]) / total;
+                    for (int i = rangeStart; i <= iterations; i++) {
+                        totalPixels += histo_prt[i];
                     }
                     
-                    green = start.g + diff.g * hue;
-                    blue = start.b + diff.b * hue;
-                    red = pow((start.r + diff.r), hue);
+                    red = startColor.r
+                    + colorDiff.r * (double) totalPixels / rangeTotal;
+                    green = startColor.g
+                    + colorDiff.g * (double) totalPixels / rangeTotal;
+                    blue = startColor.b
+                    + colorDiff.b * (double) totalPixels / rangeTotal;
+                    
                 }
+                
                 bitmap.setPixel(x, y, red, green, blue);
             }
         }
@@ -90,16 +104,51 @@ namespace bit{
         zoomList.add(zoom);
     }
     
-    void FractalCreator::writeBitmap(std::string fileName)
-    {
-        bitmap.writeBMP(fileName);
-    }
     
     void FractalCreator::addRange(double rangeEnd, const Colouring& c)
     {
         range.push_back(rangeEnd*Mandelbrot::MAX_ITER);
         colours.push_back(c);
+        
+        if(rangeStart){numRange.push_back(0);}
+        rangeStart = true;
+        
     }
     
+    void FractalCreator::calcRangeTotal()
+    {
+        int rangeIndex = 0;
+        
+        for(int i = 0; i < Mandelbrot::MAX_ITER; i++)
+        {
+            int pixel = histo_prt[i];
+            if (i >= range[rangeIndex + 1]) {
+                rangeIndex++;
+            }
+            
+            numRange[rangeIndex] += pixel;
+        }
+    }
+    
+    int FractalCreator::getRange(int iterations) const
+    {
+        int r = 0;
+        
+        for (int i = 1; i < range.size(); i++) {
+            r = i;
+            if (range[i] > iterations) {
+                break;
+            }
+            
+        }
+        
+        r--;
+        
+        assert(r > -1);
+        assert(r < range.size());
+       
+        return r;
+    
+    }
     
 }
