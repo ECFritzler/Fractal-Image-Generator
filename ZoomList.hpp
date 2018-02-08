@@ -9,27 +9,29 @@
 #ifndef ZoomList_hpp
 #define ZoomList_hpp
 
-#include <stdio.h>
-#include "Zoom.h"
 #include <vector>
 #include <utility>
+#include "Zoom.h"
 
-namespace bit{
+using namespace std;
+
+namespace bit {
     
-    class ZoomList{
+    class ZoomList {
+    private:
+        double m_xCenter{0};
+        double m_yCenter{0};
+        double m_scale{1.0};
         
-        int sHeight{0};
-        int sWidth{0};
-        std::vector<Zoom> zooms;
+        int m_width{0};
+        int m_height{0};
+        vector<Zoom> zooms;
         
     public:
-        double xCenter{0};
-        double yCenter{0};
-        double scale{1.0};
-        ZoomList(int w, int h);
+        ZoomList(int width, int height);
         void add(const Zoom& zoom);
-        std::pair<double, double> doZoom(int x, int y);
+        pair<double, double> doZoom(int x, int y);
     };
+    
 }
-
-#endif /* ZoomList_hpp */
+#endif

@@ -6,17 +6,19 @@
 //  Copyright © 2018 Claire Fritzler. All rights reserved.
 //
 
-#ifndef Zoom_h
-#define Zoom_h
-
+#ifndef ZOOM_H_
+#define ZOOM_H_
 
 namespace bit {
-    struct Zoom{
-        Zoom(int x, int y, double scale): x(x), y(y), scale(scale){}
+    
+    struct Zoom {
         int x{0};
         int y{0};
         double scale{0.0};
+        
+        Zoom(int x, int y, double scale) : x(x), y(y), scale(scale) {};
     };
+    
 }
 
-#endif /* Zoom_h */
+#endif

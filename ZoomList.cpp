@@ -8,28 +8,26 @@
 
 #include "ZoomList.hpp"
 
-namespace bit{
-    ZoomList::ZoomList(int w, int h): sWidth(w), sHeight(h)
-    {
+namespace bit {
     
-    }
-   
+    ZoomList::ZoomList(int width, int height): m_width(width), m_height(height) {}
+    
     void ZoomList::add(const Zoom& zoom)
     {
         zooms.push_back(zoom);
-        xCenter += (zoom.x - sWidth/2) * scale;
-        yCenter += (zoom.y - sHeight/2) * scale;
-        scale *= zoom.scale;
         
+        m_xCenter += (zoom.x - m_width / 2) * m_scale;
+        m_yCenter += -(zoom.y - m_height / 2) * m_scale;
+        
+        m_scale *= zoom.scale;
     }
     
-    std::pair<double, double> ZoomList::doZoom(int x, int y)
+    pair<double, double> ZoomList::doZoom(int x, int y)
     {
-        double xFrac = (x - sWidth/2) * scale + xCenter;
-        double yFrac = (y - sHeight/2) * scale + yCenter;
+        double xFractal = (x - m_width / 2) * m_scale + m_xCenter;
+        double yFractal = (y - m_height / 2) * m_scale + m_yCenter;
         
-        return std::pair<double, double>(xFrac,yFrac);
-        
+        return pair<double, double>(xFractal, yFractal);
     }
     
 }

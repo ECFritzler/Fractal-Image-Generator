@@ -10,44 +10,51 @@
 #define FractalCreator_hpp
 
 #include <string>
-#include <stdio.h>
+#include <cstdint>
+#include <memory>
+#include <math.h>
+#include <vector>
 #include "Zoom.h"
-#include "Bitmap.h"
 #include "Mandelbrot.hpp"
+#include "Bitmap.h"
 #include "ZoomList.hpp"
 #include "Colouring.hpp"
-#include <vector>
-namespace bit{
-    class FractalCreator{
-        
-        // Member Variables
+
+
+namespace bit {
+    
+    class FractalCreator {
+    private:
         int width;
         int height;
-        Bitmap bitmap;
-        unique_ptr<int[]> histo_prt;
+        unique_ptr<int[]> histo_ptr;
         unique_ptr<int[]> fractal_ptr;
+        Bitmap bitmap;
         ZoomList zoomList;
-        int total;
-        vector<double> range;
-        vector<Colouring> colours;
-        vector<int> numRange;
-        bool rangeStart{false};
+        int total { 0 };
         
-        // Member Functions
+        vector<int> range;
+        vector<Colouring> colours;
+        vector<int> numOfRanges;
+        
+        bool firstRange{false};
+        
+    private:
         void calcIter();
         void totalIter();
+        void rangeTotal();
         void drawFrac();
-        void addZoom(const Zoom& zoom);
-        void writeBitmap(std::string fileName);
-        void calcRangeTotal();
+        void writeBitmap(string name);
         int getRange(int it) const;
         
     public:
-        FractalCreator(int w, int h);
-        void run(string name);
+        FractalCreator(int width, int height);
         void addRange(double rangeEnd, const Colouring& c);
-        
-        
+        void addZoom(const Zoom& zoom);
+        virtual ~FractalCreator();
+        void run(string name);
     };
+    
 }
-#endif /* FractalCreator_hpp */
+
+#endif

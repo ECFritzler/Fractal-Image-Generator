@@ -9,13 +9,11 @@
 #ifndef Mandelbrot_hpp
 #define Mandelbrot_hpp
 
-#include <stdio.h>
-
-namespace bit{
+namespace bit {
     
     class Mandelbrot {
     public:
-        static const int MAX_ITER= 1000;
+        static const int MAX_ITER = 1000;
         
     public:
         Mandelbrot();
@@ -25,7 +23,4 @@ namespace bit{
     };
     
 }
-
-
-
-#endif /* Mandelbrot_hpp */
+#endif

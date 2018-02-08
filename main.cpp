@@ -9,23 +9,24 @@
 #include <iostream>
 #include "FractalCreator.hpp"
 #include "Colouring.hpp"
+#include "Zoom.h"
+
 using namespace std;
 using namespace bit;
 
 int main() {
     
-    FractalCreator fractal(800, 600);
-   
-    fractal.addRange(0.0, Colouring(0, 0, 0));
-    fractal.addRange(0.3, Colouring(255, 0, 0));
-    fractal.addRange(0.5, Colouring(0,0,255));
-    fractal.addRange(1.0, Colouring(0,255,0));
-   
-
+    FractalCreator fractalCreator(800, 600);
     
-    fractal.run("colourRanges.bmp");
+    fractalCreator.addRange(0.0, Colouring(0, 0, 255));
+    fractalCreator.addRange(0.05, Colouring(255, 99, 71));
+    fractalCreator.addRange(0.08, Colouring(255, 215, 0));
+    fractalCreator.addRange(1.0, Colouring(255, 255, 255));
     
-    cout << "finished" << endl;
+    fractalCreator.addZoom(Zoom(295, 202, 0.1));
+    fractalCreator.addZoom(Zoom(312, 304, 0.1));
+    fractalCreator.run("colourRanges.bmp");
     
+    cout << "Finished." << endl;
     return 0;
 }

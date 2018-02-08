@@ -8,12 +8,14 @@
 
 #include "Colouring.hpp"
 
-namespace bit{
+
+namespace bit {
     
-    Colouring operator-(const Colouring& first, const Colouring second)
+    Colouring::Colouring(double r, double g, double b): r(r), g(g), b(b) {}
+    
+    Colouring operator-(const Colouring& first, const Colouring& second)
     {
-        
         return Colouring(first.r - second.r, first.g - second.g, first.b - second.b);
-        
     }
+    
 }
