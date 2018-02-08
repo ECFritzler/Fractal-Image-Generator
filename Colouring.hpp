@@ -9,17 +9,18 @@
 #ifndef Colouring_hpp
 #define Colouring_hpp
 
-#include <stdio.h>
-namespace bit{
-    struct Colouring{
-        Colouring(double r, double g, double b):r(r), g(g), b(b){}
+namespace bit {
     
+    struct Colouring {
         double r;
         double g;
         double b;
+        
+        Colouring(double r, double g, double b);
     };
-    Colouring operator-(const Colouring& first, const Colouring second);
+    
+    Colouring operator-(const Colouring& first, const Colouring& second);
     
 }
 
-#endif /* Colouring_hpp */
+#endif

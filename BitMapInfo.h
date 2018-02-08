@@ -6,16 +6,14 @@
 //  Copyright © 2018 Claire Fritzler. All rights reserved.
 //
 
-#ifndef BitMapInfo_h
-#define BitMapInfo_h
+#ifndef BitmapInfo_H_
+#define BitmapInfo_H_
 
 #include <cstdint>
 
-using namespace std;
+#pragma pack(2)
 
 namespace bit {
-    
-#pragma pack(push, 2)
     
     struct BitmapInfo {
         int32_t headerSize{40};
@@ -31,9 +29,6 @@ namespace bit {
         int32_t importantColors{0};
     };
     
-#pragma pack(pop)
-    
 }
 
-
-#endif /* BitMapInfo_h */
+#endif

@@ -6,16 +6,15 @@
 //  Copyright © 2018 Claire Fritzler. All rights reserved.
 //
 
-#ifndef BitMapFile_h
-#define BitMapFile_h
+#ifndef BitmapFile_H_
+#define BitmapFile_H_
 
 #include <cstdint>
 
-using namespace std;
+
+#pragma pack(2)
 
 namespace bit {
-    
-#pragma pack(push, 2)
     
     struct BitmapFile {
         char header[2] { 'B', 'M' };
@@ -24,9 +23,6 @@ namespace bit {
         int32_t dataOffset;
     };
     
-#pragma pack(pop)
-    
 }
-
 
 #endif /* BitMapFile_hpp */

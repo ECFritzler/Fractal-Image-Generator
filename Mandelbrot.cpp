@@ -6,39 +6,38 @@
 //  Copyright © 2018 Claire Fritzler. All rights reserved.
 //
 
-#include <complex>
 #include "Mandelbrot.hpp"
+#include <complex>
+
 
 using namespace std;
 
 namespace bit {
     
-    Mandelbrot::Mandelbrot() {
-        // TODO Auto-generated constructor stub
-        
-    }
+    Mandelbrot::Mandelbrot() {}
     
-    Mandelbrot::~Mandelbrot() {
-        // TODO Auto-generated destructor stub
-    }
-    
-    int Mandelbrot::getIter(double x, double y) {
-        
+    int Mandelbrot::getIter(double x, double y)
+    {
         complex<double> z = 0;
         complex<double> c(x, y);
         
-        int it = 0;
+        int iter = 0;
         
-        while(it < MAX_ITER) {
+        while(iter < MAX_ITER) {
             z = z*z + c;
             
             if(abs(z) > 2) {
                 break;
             }
-            it++;
+            
+            iter++;
         }
-        return it;
+        
+        return iter;
     }
+    
+    Mandelbrot::~Mandelbrot() {}
+    
     
 }
 
