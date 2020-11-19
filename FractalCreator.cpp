@@ -1,8 +1,7 @@
 /*
  * FractalCreator.cpp
  *
- *  Created on: Sep 21, 2015
- *      Author: johnpurcell
+ * 
  */
 
 #include "FractalCreator.hpp"
@@ -13,7 +12,7 @@ namespace bit {
     
     FractalCreator::FractalCreator(int width, int height) : width(width), height(height), histo_ptr(new int[Mandelbrot::MAX_ITER] { 0 }), fractal_ptr(new int[width * height] { 0 }), bitmap(width, height), zoomList(width, height)
     {
-        zoomList.add(Zoom(width / 2, height / 2, 4.0 / width));
+        zoomList.add(Zoom(width / 2, height / 2, 2.0 / width));
     }
     
     
