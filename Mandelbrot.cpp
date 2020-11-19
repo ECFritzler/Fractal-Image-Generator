@@ -24,7 +24,7 @@ namespace bit {
         int iter = 0;
         
         while(iter < MAX_ITER) {
-            z = z*z + c;
+            z = z*x + c;
             
             if(abs(z) > 2) {
                 break;
